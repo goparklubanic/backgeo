@@ -35,9 +35,47 @@
         <meta name="color-scheme" content="light dark">
         <!-- <link rel="stylesheet" href="css/index.css"> -->
         <title>Background Tracking</title>
+        <style>
+            p.geoinfo{
+                margin: 1px 0px;
+                padding: 5px;
+                background-color: darkkhaki;
+            }
+            p.infotag{
+                margin: 10px 0px 5px 0px;
+            }
+
+            span.param{
+                display: inline-block;
+                width: 85px;
+            }
+
+        </style>
     </head>
     <body>
-        <div id="info"></div>
+        <div>Current Status: <span id="info"></span></div>
+        <div>
+            <p class="infotag">Latest Position Record</p>
+            <p class="geoinfo">
+                <span class="param">Latitude</span>:
+                <span id="latpos">0</span>
+            </p>
+            <p class="geoinfo">
+                <span class="param">Longitude</span>:
+                <span id="lonpos">0</span>
+            </p>
+        </div>
+        <div>
+            <p class="infotag">Previous Position Record</p>
+            <p class="geoinfo">
+                <span class="param">Latitude</span>:
+                <span id="platpos">0</span>
+            </p>
+            <p class="geoinfo">
+                <span class="param">Longitude</span>:
+                <span id="plonpos">0</span>
+            </p>
+        </div>
         <script src="cordova.js"></script>
         <!-- <script src="js/index.js"></script> -->
         <script src="js/gpstrack.js"></script>

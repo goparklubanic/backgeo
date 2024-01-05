@@ -7,7 +7,7 @@ function onDeviceReady() {
     var config = {
         desiredAccuracy: 10,
         stationaryRadius: 20,
-        distanceFilter: 30,
+        distanceFilter: 50,
         debug: true,
         stopOnTerminate: false, // Allow the background-service to continue tracking when the app is terminated
         startForeground: true,
@@ -30,6 +30,21 @@ function onDeviceReady() {
         // console.log("Latitude: " + location.latitude);
         // console.log("Longitude: " + location.longitude);
         // Process the location data further
-        document.getElementById('info').innerHTML = 'Get Location: ' + location.latitude +', '+location.longitude;
+        var lat = location.latitude;
+        var lon = location.longitude;
+        document.getElementById('info').innerHTML = "Position Updated";
+        document.getElementById('latpos').innerHTML = lat;
+        document.getElementById('lonpos').innerHTML = lon;
+        localStorage.setItem('lat',lat);
+        localStorage.setItem('lon',lon);
+    }
+
+    bgGeo.on('stationary',onStationer);
+    function onStationer(){
+        document.getElementById('info').innerHTML = "Object currently on stationary position";
+        var plat = localStorage.getItem('lat');
+        var plon = localStorage.getItem('lon');
+        document.getElementById('platpos').innerHTML = plat;
+        document.getElementById('plonpos').innerHTML = plon;
     }
 }
