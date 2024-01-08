@@ -57,42 +57,32 @@ function onDeviceReady() {
 }
 
 function checkPermits(){
-    // Request location permissions
-    cordova.plugins.permissions.requestPermission(
-        cordova.plugins.permissions.ACCESS_FINE_LOCATION,
-        function (status) {
-            if (status.hasPermission) {
-                // Permissions granted, continue with background geolocation setup
-                // configureBackgroundGeolocation();
-                elInfo.innerHTML = "Permission Granted"
-            } else {
-                // Handle permissions denied
-                // console.warn('Location permission is not granted');
-                elInfo.innerHTML = 'Location permission is not granted';
-                return;
-            }
-        },
-        function (error) {
-            // console.error('Error requesting location permission:', error);
-            elInfo.innerHTML = 'Error requesting location permission:', error;
-        },
-        cordova.plugins.permissions.ACCESS_COARSE_LOCATION,
-        function (status) {
-            if (status.hasPermission) {
-                // Permissions granted, continue with background geolocation setup
-                // configureBackgroundGeolocation();
-                elInfo.innerHTML = "Permission Granted"
-            } else {
-                // Handle permissions denied
-                // console.warn('Location permission is not granted');
-                elInfo.innerHTML = 'Location permission is not granted';
-                return;
-            }
-        },
-        function (error) {
-            // console.error('Error requesting location permission:', error);
-            elInfo.innerHTML = 'Error requesting location permission:', error;
-        }
-    );
+    var permissions = cordova.plugins.permissions;
+    var permits = [
+        permissions.ACCESS_FINE_LOCATION,
+        permissions.ACCESS_COARSE_LOCATION,
+        permissions.FOREGROUND_SERVICE,
+        permissions.ACCESS_BACKGROUND_LOCATION
+    ];
 
+    permissions.requestPermissions(permits, requestSuccess, requestError);
+
+    var num_permissions = permits.length;
+    function requestSuccess(){
+        for (i = 0; i < num_permissions; i++) {
+            permissions.checkPermission(permits[i], function( status ){
+                if ( status.hasPermission ) {
+                    document.getElementById('info').append(`<p>${permits[i]} Granted</p>`);
+                }
+                else {
+                    document.getElementById('info').append(`<p>${permits[i]} Denied</p>`);
+                }
+            });
+        }
+    }
+
+    function requestError(){
+        // console.warn("Permissions request error");
+        document.getElementById('info').innerHTML("Permissions request error");
+    }
 }
