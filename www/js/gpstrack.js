@@ -5,19 +5,24 @@ function onDeviceReady() {
     var bgGeo = window.BackgroundGeolocation;
 
     var config = {
-        desiredAccuracy: 10,
-        stationaryRadius: 20,
+        // locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+        // desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+        interval: 60000, // 1 minute
+        fastestInterval: 30000, // 30 seconds
+        activitiesInterval: 5000, // 5 seconds
+        desiredAccuracy: 15,
+        stationaryRadius: 10,
         distanceFilter: 50,
         debug: true,
         stopOnTerminate: false, // Allow the background-service to continue tracking when the app is terminated
         startForeground: true,
         notificationTitle: 'Background tracking',
-        notificationText: 'enabled'
+        notificationText: 'Aktif'
     };
 
     // Start the background geolocation
     bgGeo.configure(config, function (location) {
-        // console.log('[js] BackgroundGeolocation callback:  ' + location.latitude + ',' + location.longitude);
+        console.log('[js] BackgroundGeolocation callback:  ' + location.latitude + ',' + location.longitude);
         
         // Handle the location data as needed (e.g., log to a server, update UI)
     });
@@ -47,4 +52,5 @@ function onDeviceReady() {
         document.getElementById('platpos').innerHTML = plat;
         document.getElementById('plonpos').innerHTML = plon;
     }
+
 }
