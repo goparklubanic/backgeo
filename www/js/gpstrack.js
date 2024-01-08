@@ -2,6 +2,8 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
 
+    // check for permissions
+    checkPermits();
     // Configure the plugin
     var bgGeo = window.BackgroundGeolocation;
 
@@ -84,5 +86,6 @@ function checkPermits(){
     function requestError(){
         // console.warn("Permissions request error");
         document.getElementById('info').innerHTML("Permissions request error");
+        return;
     }
 }
