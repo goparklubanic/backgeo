@@ -1,11 +1,33 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="id.oktal.backgeo" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget 
+    id="id.oktal.backgeo" 
+    version="1.0.0" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:cdv="http://cordova.apache.org/ns/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <name>backgeo</name>
-    <description>Sample Apache Cordova App</description>
+    <description>Geo Location Tracking Experiment</description>
     <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
         Apache Cordova Team
     </author>
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <!-- Android Manifest Configuration -->
+    <platform name="android">
+        <!-- set permission -->
+        <config-file parent="/manifest" target="app/src/main/AndroidManifest.xml">
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+            <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+        </config-file>
+        <!-- set service -->
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service
+                android:name="com.marianhello.bgloc.BackgroundGeolocationService"
+                android:enabled="true"
+                android:exported="false">
+            </service>
+        </config-file>
+    </platform>
+
 </widget>

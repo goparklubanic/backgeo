@@ -1,15 +1,16 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
+
     // Configure the plugin
     var bgGeo = window.BackgroundGeolocation;
 
     var config = {
-        // locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
-        // desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+        locationProvider: bgGeo.DISTANCE_FILTER_PROVIDER,
+        desiredAccuracy: bgGeo.HIGH_ACCURACY,
         interval: 60000, // 1 minute
-        fastestInterval: 30000, // 30 seconds
-        activitiesInterval: 5000, // 5 seconds
+        fastestInterval: 60000, // 1 minute
+        activitiesInterval: 60000, // 1 minute
         desiredAccuracy: 15,
         stationaryRadius: 10,
         distanceFilter: 50,
@@ -52,5 +53,46 @@ function onDeviceReady() {
         document.getElementById('platpos').innerHTML = plat;
         document.getElementById('plonpos').innerHTML = plon;
     }
+
+}
+
+function checkPermits(){
+    // Request location permissions
+    cordova.plugins.permissions.requestPermission(
+        cordova.plugins.permissions.ACCESS_FINE_LOCATION,
+        function (status) {
+            if (status.hasPermission) {
+                // Permissions granted, continue with background geolocation setup
+                // configureBackgroundGeolocation();
+                elInfo.innerHTML = "Permission Granted"
+            } else {
+                // Handle permissions denied
+                // console.warn('Location permission is not granted');
+                elInfo.innerHTML = 'Location permission is not granted';
+                return;
+            }
+        },
+        function (error) {
+            // console.error('Error requesting location permission:', error);
+            elInfo.innerHTML = 'Error requesting location permission:', error;
+        },
+        cordova.plugins.permissions.ACCESS_COARSE_LOCATION,
+        function (status) {
+            if (status.hasPermission) {
+                // Permissions granted, continue with background geolocation setup
+                // configureBackgroundGeolocation();
+                elInfo.innerHTML = "Permission Granted"
+            } else {
+                // Handle permissions denied
+                // console.warn('Location permission is not granted');
+                elInfo.innerHTML = 'Location permission is not granted';
+                return;
+            }
+        },
+        function (error) {
+            // console.error('Error requesting location permission:', error);
+            elInfo.innerHTML = 'Error requesting location permission:', error;
+        }
+    );
 
 }

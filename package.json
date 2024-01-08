@@ -15,11 +15,13 @@
   "devDependencies": {
     "@mauron85/cordova-plugin-background-geolocation": "^3.1.0",
     "cordova-android": "^12.0.1",
-    "cordova-background-geolocation-plugin": "^2.0.10"
+    "cordova-background-geolocation-plugin": "^2.0.10",
+    "cordova-plugin-android-permissions": "^1.1.5"
   },
   "cordova": {
     "plugins": {
-      "cordova-background-geolocation-plugin": {}
+      "cordova-background-geolocation-plugin": {},
+      "cordova-plugin-android-permissions": {}
     },
     "platforms": [
       "android"
